@@ -1,4 +1,3 @@
-from winreg import QueryInfoKey
 from py2neo import *
 
 graph = Graph(password="mypassword")
@@ -23,6 +22,7 @@ def findEmployee(id):
 def updateEmployee(identity, id, firstName, lastName, hireYear):
     query = Node("People", identity = identity, id = id, firstName = firstName, lastName = lastName, hireYear = hireYear)
     graph.merge(query)
+
 
 # Delete:
 
