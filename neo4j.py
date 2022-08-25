@@ -28,7 +28,8 @@ def findEmployee(id):
 
 def deleteEmployee(id):
     graph.run('MATCH(p:People {id:"' + str(id) + '"})delete p')
+    print("node " + str(id) + " deleted ")
 
 # createEmployee("10001", "Domenico", "Montalto", "1992")
 
-deleteEmployee(10001)
+# deleteEmployee(10001)
