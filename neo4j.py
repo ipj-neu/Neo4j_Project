@@ -10,9 +10,12 @@ graph = Graph(password="mypassword")
 # More example code:
 # Create:
 def createEmployee():
-    query = "CREATE (a:Employee {}), {}"
-    results = graph.run(query)
-    print("createEmployee Results -> " + results)
+    try:
+        query = "CREATE (a:Employee {}), {}"
+        results = graph.run(query)
+        print("createEmployee Results -> " + results)
+    except:
+        print("Something went wrong! -> createEmployee")
 
 # Read:
 
