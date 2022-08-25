@@ -39,3 +39,7 @@ def deleteEmployee(id):
 # createEmployee("10001", "Domenico", "Montalto", "1992")
 
 # deleteEmployee(10001)
+
+relationshipMatcher = RelationshipMatcher(graph)
+result = relationshipMatcher.match(nodes=[findEmployee("666")], r_type="BOSS_OF").all()
+print(result)
