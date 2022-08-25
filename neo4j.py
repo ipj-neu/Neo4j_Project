@@ -2,30 +2,33 @@ from py2neo import *
 
 graph = Graph(password="mypassword")
 
-# how to install py2neo
-# py -m pip install py2neo 
+def createDatabase():
+    graph.run("load csv with headers from 'file:///people.csv' as row create (:People {id: row.id, firstName: row.firstName, lastName: row.lastName, hiredYear: row.hiredYear})")
+    print("createDatabase -> Nodes created")
+    createRelationships()
+    print("createDatabase -> Done")
 
-#example code
-# results = graph.run("match (p:People) return p limit 50")
-# for node in results.data():
-#     print(node['p'].get('firstName'))
+def createRelationships():
+    graph.run("load csv with headers from 'file:///friendships.csv' as row match (p:People), (f:People) where p.id = row.pid and f.id = row.friendid create (p)-[r:FRIEND_OF]->(f)")
+    print("createRelasionships -> Freindships created")
+    graph.run("load csv with headers from 'file:///reportsTo.csv' as row match (p:People), (b:People) where p.id = row.pid and b.id = row.bossid create (b)-[r:BOSS_OF]->(p)")
+    print("createRelasionships -> Bosses created")
 
-# More example code:
 # Create:
 def createEmployee(id, firstName, lastName, hireYear):
-    try:
-        # Uses 'Node' to create a...node
-        query = Node("People", id = id, firstName = firstName, lastName = lastName, hireYear = hireYear)
-        results = graph.create(query)
-        print("createEmployee Results -> " + results)
-    except:
-        print("Something went wrong! -> createEmployee")
+    # Uses 'Node' to create a...node
+    query = Node("People", id = id, firstName = firstName, lastName = lastName, hireYear = hireYear)
+    graph.create(query)
 
 # Read:
 def findEmployee(id):
     return graph.nodes.match("People", id=id).first()
 
-# Update:
+# Update: (Work in progress)
+def updateEmployee(identity, id, firstName, lastName, hireYear):
+    query = Node("People", identity = identity, id = id, firstName = firstName, lastName = lastName, hireYear = hireYear)
+    graph.merge(query)
+
 
 # Delete:
 
