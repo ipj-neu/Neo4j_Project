@@ -24,3 +24,7 @@ def findEmployee(id):
 # Update:
 
 # Delete:
+
+def deleteEmployee(id):
+    pass
+
