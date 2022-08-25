@@ -9,10 +9,11 @@ graph = Graph(password="mypassword")
 
 # More example code:
 # Create:
-def createEmployee():
+def createEmployee(id, firstName, lastName, hireYear):
     try:
-        query = "CREATE (a:Employee {}), {}"
-        results = graph.run(query)
+        # Uses 'Node' to create a...node
+        query = Node("People", id = id, firstName = firstName, lastName = lastName, hireYear = hireYear)
+        results = graph.create(query)
         print("createEmployee Results -> " + results)
     except:
         print("Something went wrong! -> createEmployee")
@@ -22,3 +23,5 @@ def createEmployee():
 # Update:
 
 # Delete:
+
+createEmployee("1", "Howard", "howard", "0")
