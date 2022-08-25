@@ -19,6 +19,8 @@ def createEmployee(id, firstName, lastName, hireYear):
         print("Something went wrong! -> createEmployee")
 
 # Read:
+def findEmployee(id):
+    return graph.nodes.match("People", id=id).first()
 
 # Update:
 
