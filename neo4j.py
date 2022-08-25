@@ -38,8 +38,9 @@ def deleteEmployee(id):
 
 # joins / Match
 def findWhoReportsToEmployee(id):
-    report = graph.run('MATCH(p:People {id:"'+ str(id) + '"})-[:BOSS_OF]->(p2) return p2')
-    print(report)
+    relationshipMatcher = RelationshipMatcher(graph)
+    result = relationshipMatcher.match(nodes=[findEmployee(str(id))], r_type="BOSS_OF").all()
+    print(result)
 
 
 # MATCH(p:People {id:"666"})-[:BOSS_OF]->(p2)
@@ -49,4 +50,5 @@ def findWhoReportsToEmployee(id):
 
 # deleteEmployee(10001)
 
-findWhoReportsToEmployee(50)
+# findWhoReportsToEmployee(666)
+
