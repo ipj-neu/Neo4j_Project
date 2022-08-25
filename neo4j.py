@@ -1,3 +1,4 @@
+from winreg import QueryInfoKey
 from py2neo import *
 
 graph = Graph(password="mypassword")
@@ -10,20 +11,21 @@ graph = Graph(password="mypassword")
 # More example code:
 # Create:
 def createEmployee(id, firstName, lastName, hireYear):
-    try:
-        # Uses 'Node' to create a...node
-        query = Node("People", id = id, firstName = firstName, lastName = lastName, hireYear = hireYear)
-        results = graph.create(query)
-        print("createEmployee Results -> " + results)
-    except:
-        print("Something went wrong! -> createEmployee")
+    # Uses 'Node' to create a...node
+    query = Node("People", id = id, firstName = firstName, lastName = lastName, hireYear = hireYear)
+    graph.create(query)
 
 # Read:
 def findEmployee(id):
     return graph.nodes.match("People", id=id).first()
 
-# Update:
+# Update: (Work in progress)
+def updateEmployee(identity, id, firstName, lastName, hireYear):
+    query = Node("People", identity = identity, id = id, firstName = firstName, lastName = lastName, hireYear = hireYear)
+    graph.merge(query)
 
 # Delete:
 
-createEmployee("1", "Howard", "howard", "0")
+# createEmployee("1", "Howard", "howard", "0")
+# (Work in progress)
+# updateEmployee("10001", "1", "Boward", "boward", "3")
