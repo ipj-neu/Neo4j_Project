@@ -2,6 +2,9 @@ from py2neo import *
 
 graph = Graph(password="mypassword")
 
+# how to install py2neo
+# py -m pip install py2neo 
+
 #example code
 # results = graph.run("match (p:People) return p limit 50")
 # for node in results.data():
