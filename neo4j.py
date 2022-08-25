@@ -19,7 +19,7 @@ def createEmployee():
 
 # Read:
 def findEmployee(id):
-    return graph.nodes.match("Employee", id=id).first()
+    return graph.nodes.match("People", id=id).first()
 
 # Update:
 
