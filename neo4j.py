@@ -15,6 +15,8 @@ def createEmployee():
     print("createEmployee Results -> " + results)
 
 # Read:
+def findEmployee(id):
+    return graph.nodes.match("Employee", id=id).first()
 
 # Update:
 
