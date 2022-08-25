@@ -25,3 +25,10 @@ def findEmployee(id):
 # Update:
 
 # Delete:
+
+def deleteEmployee(id):
+    graph.run('MATCH(p:People {id:"' + str(id) + '"})delete p')
+
+# createEmployee("10001", "Domenico", "Montalto", "1992")
+
+deleteEmployee(10001)
