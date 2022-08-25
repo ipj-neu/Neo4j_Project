@@ -2,12 +2,18 @@ from py2neo import *
 
 graph = Graph(password="mypassword")
 
-#example code
-# results = graph.run("match (p:People) return p limit 50")
-# for node in results.data():
-#     print(node['p'].get('firstName'))
+def createDatabase():
+    graph.run("load csv with headers from 'file:///people.csv' as row create (:People {id: row.id, firstName: row.firstName, lastName: row.lastName, hiredYear: row.hiredYear})")
+    print("createDatabase -> Nodes created")
+    createRelationships()
+    print("createDatabase -> Done")
 
-# More example code:
+def createRelationships():
+    graph.run("load csv with headers from 'file:///friendships.csv' as row match (p:People), (f:People) where p.id = row.pid and f.id = row.friendid create (p)-[r:FRIEND_OF]->(f)")
+    print("createRelasionships -> Freindships created")
+    graph.run("load csv with headers from 'file:///reportsTo.csv' as row match (p:People), (b:People) where p.id = row.pid and b.id = row.bossid create (b)-[r:BOSS_OF]->(p)")
+    print("createRelasionships -> Bosses created")
+
 # Create:
 def createEmployee(id, firstName, lastName, hireYear):
     try:
@@ -26,4 +32,5 @@ def findEmployee(id):
 
 # Delete:
 
-createEmployee("1", "Howard", "howard", "0")
+# createEmployee("1", "Howard", "howard", "0")
+# createDatabase()
