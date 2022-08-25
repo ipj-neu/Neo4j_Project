@@ -26,6 +26,10 @@ def updateEmployee(identity, id, firstName, lastName, hireYear):
 
 # Delete:
 
-# createEmployee("1", "Howard", "howard", "0")
-# (Work in progress)
-# updateEmployee("10001", "1", "Boward", "boward", "3")
+def deleteEmployee(id):
+    graph.run('MATCH(p:People {id:"' + str(id) + '"})delete p')
+    print("node " + str(id) + " deleted ")
+
+# createEmployee("10001", "Domenico", "Montalto", "1992")
+
+# deleteEmployee(10001)
