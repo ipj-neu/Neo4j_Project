@@ -16,9 +16,9 @@ def createRelationships():
     print("createRelasionships -> Bosses created")
 
 # Create:
-def createEmployee(id, firstName, lastName, hireYear):
+def createEmployee(id, firstName, lastName, hiredYear):
     # Uses 'Node' to create a...node
-    query = Node("People", id = id, firstName = firstName, lastName = lastName, hireYear = hireYear)
+    query = Node("People", id = id, firstName = firstName, lastName = lastName, hiredYear = hiredYear)
     graph.create(query)
 
 # Read:
@@ -26,13 +26,13 @@ def findEmployee(id):
     return graph.nodes.match("People", id=id).first()
 
 # Update: (Work in progress)
-def updateEmployee(identity, id, firstName, lastName, hireYear):
-    query = Node("People", identity = identity, id = id, firstName = firstName, lastName = lastName, hireYear = hireYear)
-    graph.merge(query)
+def updateEmployee(id, firstName, lastName, hiredYear):
+    graph.run("match (p:People {id:\"%s\"}) set p.firstName = \"%s\" set p.lastName = \"%s\" set p.hiredYear = \"%s\" RETURN (p)"
+    %(id, firstName, lastName, hiredYear))
+    print("Person of ID: " + str(id) + " updated!")
 
 
 # Delete:
-
 def deleteEmployee(id):
     graph.run('MATCH(p:People {id:"' + str(id) + '"})delete p')
     print("node " + str(id) + " deleted ")
