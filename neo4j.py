@@ -31,19 +31,18 @@ def updateEmployee(id, firstName, lastName, hiredYear):
     %(id, firstName, lastName, hiredYear))
     print("Person of ID: " + str(id) + " updated!")
 
-
 # Delete:
 def deleteEmployee(id):
     graph.run('MATCH(p:People {id:"' + str(id) + '"})delete p')
     print("node " + str(id) + " deleted ")
 
-# joins / Match
+# Joins / Match
 def findWhoReportsToEmployee(id):
     relationshipMatcher = RelationshipMatcher(graph)
     result = relationshipMatcher.match(nodes=[findEmployee(str(id))], r_type="BOSS_OF").all()
     print(result)
 
-# indexing
+# Indexing
 def indexByFirstName():
     graph.run('CREATE INDEX FOR (p:People) ON (p.firstName)')
     print("successfully indexed")
@@ -56,12 +55,16 @@ def aggregateWithAverage():
     result = graph.run('MATCH (p:People) RETURN avg(toInteger(p.hiredYear))')
     print(result)
 
-
-
+# Create relationship between two nodes
+def createRelationship(empID1, relationship,empID2):
+    emp1 = graph.nodes.match("People", id=empID1).first()
+    emp2 = graph.nodes.match("People", id=empID2).first()
+    emp1_BOSS_OF_emp2 = Relationship(emp1, relationship, emp2)
+    graph.create(emp1_BOSS_OF_emp2)
 
 # CALL db.indexes
 
-# createEmployee("10001", "Domenico", "Montalto", "1992")
+# createEmployee("10002", "Zoward", "Woward", "1998")
 
 # deleteEmployee(10001)
 
@@ -74,3 +77,5 @@ def aggregateWithAverage():
 # createDatabase()
 
 # aggregateWithAverage()
+
+# createRelationship("10002", "BOSS_OF", "10001")
