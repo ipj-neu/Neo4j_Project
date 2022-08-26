@@ -1,3 +1,4 @@
+from xml.dom.minidom import TypeInfo
 from py2neo import *
 
 graph = Graph(password="mypassword")
@@ -42,9 +43,23 @@ def findWhoReportsToEmployee(id):
     result = relationshipMatcher.match(nodes=[findEmployee(str(id))], r_type="BOSS_OF").all()
     print(result)
 
+# indexing
+def indexByFirstName():
+    graph.run('CREATE INDEX FOR (p:People) ON (p.firstName)')
+    print("successfully indexed")
 
-# MATCH(p:People {id:"666"})-[:BOSS_OF]->(p2)
-# return p2
+def showIndexTables():
+    tables = graph.run('CALL db.indexes')
+    print(tables)
+
+def aggregateWithAverage():
+    result = graph.run('MATCH (p:People) RETURN avg(toInteger(p.hiredYear))')
+    print(result)
+
+
+
+
+# CALL db.indexes
 
 # createEmployee("10001", "Domenico", "Montalto", "1992")
 
@@ -52,3 +67,10 @@ def findWhoReportsToEmployee(id):
 
 # findWhoReportsToEmployee(666)
 
+# indexByFirstName()
+
+# showIndexTables()
+
+# createDatabase()
+
+# aggregateWithAverage()
