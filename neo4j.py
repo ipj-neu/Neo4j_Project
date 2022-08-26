@@ -17,7 +17,7 @@ def createRelationships():
 # Create:
 def createEmployee(id, firstName, lastName, hiredYear):
     # Uses 'Node' to create a...node
-    query = Node("People", id = id, firstName = firstName, lastName = lastName, hiredYear = hireYear)
+    query = Node("People", id = id, firstName = firstName, lastName = lastName, hiredYear = hiredYear)
     graph.create(query)
 
 # Read:
