@@ -25,7 +25,7 @@ def createEmployee(id, firstName, lastName, hiredYear):
 def findEmployee(id):
     return graph.nodes.match("People", id=id).first()
 
-# Update: (Work in progress)
+# Update:
 def updateEmployee(id, firstName, lastName, hiredYear):
     graph.run("match (p:People {id:\"%s\"}) set p.firstName = \"%s\" set p.lastName = \"%s\" set p.hiredYear = \"%s\" RETURN (p)"
     %(id, firstName, lastName, hiredYear))
