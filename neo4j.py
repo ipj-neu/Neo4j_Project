@@ -17,7 +17,7 @@ def createRelationships():
 # Create:
 def createEmployee(id, firstName, lastName, hiredYear):
     # Uses 'Node' to create a...node
-    query = Node("People", id = id, firstName = firstName, lastName = lastName, hiredYear = hiredYear)
+    query = Node("People", id = id, firstName = firstName, lastName = lastName, hiredYear = hireYear)
     graph.create(query)
 
 # Read:
@@ -36,7 +36,19 @@ def deleteEmployee(id):
     graph.run('MATCH(p:People {id:"' + str(id) + '"})delete p')
     print("node " + str(id) + " deleted ")
 
-# createEmployee("10002", "Howard", "Boward", "0000")
-# findEmployee("10002")
-# updateEmployee("10002", "Coward", "Doward", "1000")
+# joins / Match
+def findWhoReportsToEmployee(id):
+    relationshipMatcher = RelationshipMatcher(graph)
+    result = relationshipMatcher.match(nodes=[findEmployee(str(id))], r_type="BOSS_OF").all()
+    print(result)
+
+
+# MATCH(p:People {id:"666"})-[:BOSS_OF]->(p2)
+# return p2
+
+# createEmployee("10001", "Domenico", "Montalto", "1992")
+
 # deleteEmployee(10001)
+
+# findWhoReportsToEmployee(666)
+
